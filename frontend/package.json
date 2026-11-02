@@ -1,0 +1,11 @@
+{
+  "name": "ai-edu-media-workbench",
+  "version": "0.2.0",
+  "private": true,
+  "license": "MIT",
+  "description": "知行 · AI 内容工作室 — 从课程知识到多平台内容",
+  "type": "module",
+  "scripts": {"dev": "vite --host 127.0.0.1", "build": "vite build", "preview": "vite preview --host 127.0.0.1"},
+  "dependencies": {"vue": "^3.5.0", "markdown-it": "^14.1.0", "dompurify": "^3.3.0"},
+  "devDependencies": {"vite": "8.3.5", "@vitejs/plugin-vue": "6.0.10"}
+}

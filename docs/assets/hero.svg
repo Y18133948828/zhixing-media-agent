@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="380" viewBox="0 0 1200 380" role="img" aria-labelledby="title desc">
+<title id="title">知行 · AI 内容工作室</title><desc id="desc">从课程知识到多平台内容，用可审核的 AI 工作流串联每一步。</desc>
+<defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#102c27"/><stop offset="1" stop-color="#1e4940"/></linearGradient><radialGradient id="glow"><stop stop-color="#96e7b8" stop-opacity=".22"/><stop offset="1" stop-color="#96e7b8" stop-opacity="0"/></radialGradient></defs>
+<rect width="1200" height="380" rx="24" fill="url(#bg)"/><circle cx="1010" cy="20" r="330" fill="url(#glow)"/>
+<g fill="none" stroke="#9bd7b7" stroke-opacity=".15"><path d="M860 0V380M980 0V380M1100 0V380M800 80H1200M800 200H1200M800 320H1200"/></g>
+<text x="64" y="72" fill="#a1dfb8" font-family="Arial,sans-serif" font-size="15" letter-spacing="4">ZHIXING MEDIA AGENT</text>
+<text x="60" y="155" fill="#f4f8ed" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-weight="700" font-size="56">知行 · AI 内容工作室</text>
+<text x="64" y="214" fill="#d2e4d9" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="24">让课程知识，成为值得分享的内容。</text>
+<text x="64" y="261" fill="#9ebeb0" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="19">选题策划　/　人工审稿　/　知识卡片　/　公众号长文</text>
+<rect x="64" y="301" width="190" height="34" rx="17" fill="#bce6c7"/><text x="159" y="324" text-anchor="middle" fill="#173c30" font-family="Arial,sans-serif" font-size="14">LangGraph + Volcengine</text>
+<g transform="translate(918 87) rotate(8)"><rect width="170" height="220" rx="14" fill="#9bd7b7" opacity=".18"/><rect x="-22" y="14" width="170" height="220" rx="14" fill="#e9f0de"/><rect x="0" y="40" width="42" height="7" rx="3" fill="#39775e"/><rect x="0" y="65" width="121" height="13" rx="4" fill="#234e3e"/><rect x="0" y="89" width="85" height="13" rx="4" fill="#234e3e"/><g fill="#a6c1ab"><rect x="0" y="129" width="119" height="6" rx="3"/><rect x="0" y="146" width="103" height="6" rx="3"/><rect x="0" y="163" width="114" height="6" rx="3"/></g><rect x="0" y="193" width="69" height="18" rx="9" fill="#caddc5"/></g>
+</svg>

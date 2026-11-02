@@ -1,0 +1,12 @@
+<script setup>
+import { ref, watch } from 'vue'
+import { api } from '../api'
+const props = defineProps(['task'])
+const emit = defineEmits(['error', 'saved'])
+const rating = ref({score:4,dimensions:{accuracy:4,clarity:4,usefulness:4,style:4},comment:''})
+const terms = ref(''), avoid = ref(''), message = ref(''), busy = ref(false)
+watch(() => props.task.id, async () => { try { const r = await api(`/tasks/${props.task.id}/rating`); if(r)rating.value=r } catch(e){emit('error',e.message)} }, {immediate:true})
+async function save(){busy.value=true;try{await api(`/tasks/${props.task.id}/rating`,{method:'PUT',body:rating.value});message.value='评价已保存，可在创作概览比较不同提示词的评分';emit('saved')}catch(e){emit('error',e.message)}finally{busy.value=false}}
+async function sample(){busy.value=true;try{const result=await api('/evaluation-cases',{method:'POST',body:{task_id:props.task.id,name:(props.task.title||'内容样本').slice(0,140),rules:{must_include:terms.value.split(/[,，\n]/).map(t=>t.trim()).filter(Boolean),must_avoid:avoid.value.split(/[,，\n]/).map(t=>t.trim()).filter(Boolean)}}});message.value=`已存为固定评测样本 ${result.id.slice(0,8)}，可到“提示词与评测”运行版本对照`}catch(e){emit('error',e.message)}finally{busy.value=false}}
+</script>
+<template><section class="panel"><div class="section-heading"><div><span class="eyebrow">QUALITY FEEDBACK</span><h2>这次内容，实际好不好用？</h2></div></div><div class="form-grid"><label>总体满意度<select v-model.number="rating.score"><option v-for="n in [1,2,3,4,5]" :key="n" :value="n">{{n}} / 5</option></select></label><label v-for="d in [{id:'accuracy',name:'技术准确性'},{id:'clarity',name:'表达清晰度'},{id:'usefulness',name:'可操作性'},{id:'style',name:'风格贴合度'}]" :key="d.id">{{d.name}}<select v-model.number="rating.dimensions[d.id]"><option v-for="n in [1,2,3,4,5]" :value="n" :key="n">{{n}} / 5</option></select></label></div><label>具体问题或改进建议<textarea v-model="rating.comment" rows="3" maxlength="2000"></textarea></label><button :disabled="busy" @click="save">保存效果评价</button><details class="sample-builder"><summary>将本次输入与定稿加入固定评测集</summary><p class="muted">之后用同一输入比较提示词版本。自动评分只检查规则，技术事实与教学质量仍由人判断。</p><div class="form-grid"><label>必须出现的词句（逗号分隔）<input v-model="terms" maxlength="1000"></label><label>禁止出现的词句（逗号分隔）<input v-model="avoid" maxlength="1000"></label></div><button :disabled="busy" @click="sample">保存评测样本</button></details><p v-if="message" role="status" class="muted">{{message}}</p></section></template>

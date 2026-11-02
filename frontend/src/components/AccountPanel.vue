@@ -1,0 +1,11 @@
+<script setup>
+import { onMounted, ref } from 'vue'
+import { api, setToken } from '../api'
+const props=defineProps(['user'])
+const emit=defineEmits(['error','updated'])
+const form=ref({old_password:'',new_password:''}),users=ref([]),busy=ref(false),message=ref('')
+async function password(){busy.value=true;try{const r=await api('/auth/password',{method:'POST',body:form.value});setToken(r.access_token);emit('updated',r.user);form.value={old_password:'',new_password:''};message.value='密码已修改，其他已登录会话已失效'}catch(e){emit('error',e.message)}finally{busy.value=false}}
+async function save(u){busy.value=true;try{await api(`/admin/users/${u.id}`,{method:'PATCH',body:{role:u.role,disabled:u.disabled}});message.value='账号设置已保存，受影响账号需要重新登录'}catch(e){emit('error',e.message)}finally{busy.value=false}}
+onMounted(async()=>{if(props.user.role==='admin')try{users.value=await api('/admin/users')}catch(e){emit('error',e.message)}})
+</script>
+<template><div class="intro compact"><h2>账号与审核权限</h2><p>{{user.username}} · 当前角色：{{{editor:'编辑',manager:'组长',director:'总监',admin:'管理员'}[user.role]||user.role}}</p></div><p v-if="message" class="toast success" role="status">{{message}}</p><form class="panel account-form" @submit.prevent="password"><h3>修改密码</h3><label>当前密码<input v-model="form.old_password" type="password" autocomplete="current-password" required minlength="8" maxlength="100"></label><label>新密码<input v-model="form.new_password" type="password" autocomplete="new-password" required minlength="8" maxlength="100"></label><button class="primary" :disabled="busy">修改密码并使其他会话失效</button></form><section v-if="user.role==='admin'" class="panel"><h3>账号管理</h3><p class="muted">编辑可创建内容；组长、总监可被指定为后续审核人。修改角色或停用账号后，其已有登录会话失效。</p><div class="table-scroll"><table><thead><tr><th>用户名</th><th>角色</th><th>停用</th><th></th></tr></thead><tbody><tr v-for="u in users" :key="u.id"><td>{{u.username}}</td><td><select v-model="u.role"><option value="editor">编辑</option><option value="manager">组长</option><option value="director">总监</option><option value="admin">管理员</option></select></td><td><input v-model="u.disabled" type="checkbox"></td><td><button :disabled="busy" @click="save(u)">保存</button></td></tr></tbody></table></div></section></template>

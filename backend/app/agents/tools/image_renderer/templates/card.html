@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><style>
+*{box-sizing:border-box}html,body{margin:0;width:1242px;height:1656px;overflow:hidden}
+body{font-family:"Microsoft YaHei","Noto Sans CJK SC",sans-serif;background:#f5f3eb;color:#17352e}
+body.dark{background:#142522;color:#f0f4e8}
+.card{height:100%;padding:78px 82px 64px;display:flex;flex-direction:column;border-top:18px solid #4dba91}
+.label{font-size:25px;letter-spacing:5px;color:#2a8065;display:flex;justify-content:space-between}
+.dark .label{color:#92dbbb}.number{letter-spacing:0}
+.content{flex:1;min-height:0;overflow:visible;margin-top:64px;font-size:48px}
+h1{font-size:76px;line-height:1.28;letter-spacing:-2px;margin:0 0 30px;overflow-wrap:anywhere}
+.subtitle{font-size:32px;color:#627b71;line-height:1.6;margin-bottom:56px}.dark .subtitle{color:#9ab6a9}
+ul{list-style:none;padding:0;margin:0}li{margin:0 0 38px;line-height:1.6;padding-left:36px;position:relative;overflow-wrap:anywhere}
+li:before{content:"";position:absolute;left:0;top:.65em;width:12px;height:12px;border-radius:50%;background:#4dba91}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#18372e;color:#d9f8dc;padding:28px;border-radius:18px;font:29px/1.7 Consolas,monospace;margin:32px 0}
+.dark pre{background:#213e36}.takeaway{margin-top:48px;padding:28px 32px;background:#e3eadd;border-radius:18px;font-size:36px;line-height:1.6;font-weight:700;overflow-wrap:anywhere}.dark .takeaway{background:#29463b}
+.footer{margin-top:32px;display:flex;justify-content:space-between;border-top:2px solid #b7c7ba;padding-top:24px;font-size:24px;color:#627b71}.dark .footer{color:#9ab6a9}
+</style><body class="{{ theme }}"><div class="card">
+<div class="label"><span>AI LEARNING NOTES</span><span class="number">{{ '%02d'|format(number) }} / {{ '%02d'|format(total) }}</span></div>
+<main class="content"><h1>{{ slide.title }}</h1><div class="subtitle">{{ slide.subtitle }}</div>
+<ul>{% for bullet in slide.bullets %}<li>{{ bullet }}</li>{% endfor %}</ul>
+{% if slide.code %}<pre>{{ slide.code }}</pre>{% endif %}
+{% if slide.takeaway %}<div class="takeaway">{{ slide.takeaway }}</div>{% endif %}</main>
+<div class="footer"><span>AI 编程 · 技术学习卡片</span><span>{% if mode == 'mock' %}演示样稿 · 发布前请核实{% else %}技术内容 · 发布前请核实{% endif %}</span></div>
+</div></body></html>
